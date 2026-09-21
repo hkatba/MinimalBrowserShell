@@ -62,10 +62,7 @@ public partial class BrowserWindow : Window
                 Close();
                 break;
             case BrowserCommand.FocusAddress:
-                AddressBar.Visibility = Visibility.Visible;
-                AddressInput.Text = WebView.Source?.ToString() ?? _settings.StartupUrl;
-                AddressInput.Focus();
-                AddressInput.SelectAll();
+                ShowAddressBar();
                 break;
             case BrowserCommand.Back: _navigation?.Back(); break;
             case BrowserCommand.Forward: _navigation?.Forward(); break;
@@ -73,16 +70,41 @@ public partial class BrowserWindow : Window
         }
     }
 
+    private void ShowAddressBar()
+    {
+        AddressBar.Visibility = Visibility.Visible;
+        AddressInput.Text = WebView.Source?.ToString() ?? _settings.StartupUrl;
+        AddressInput.Focus();
+        AddressInput.SelectAll();
+    }
+
+    private void HideAddressBar()
+    {
+        if (AddressBar.Visibility == Visibility.Collapsed) return;
+        AddressBar.Visibility = Visibility.Collapsed;
+        WebView.Focus();
+    }
+
     private void AddressInput_KeyDown(object sender, KeyEventArgs e)
     {
+        if (e.Key == Key.Escape)
+        {
+            e.Handled = true;
+            HideAddressBar();
+            return;
+        }
         if (e.Key != Key.Enter) return;
         e.Handled = true;
         try
         {
             _navigation?.Navigate(UrlNormalizer.Normalize(AddressInput.Text, _settings.SearchUrlTemplate));
-            AddressBar.Visibility = Visibility.Collapsed;
-            Keyboard.ClearFocus();
         }
         catch { }
+        HideAddressBar();
+    }
+
+    private void AddressInput_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+    {
+        HideAddressBar();
     }
 }

@@ -6,11 +6,11 @@
         PreviewKeyDown="Window_PreviewKeyDown">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="34"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border x:Name="AddressBar" Grid.Row="0" Padding="6,4" Background="#F3F3F3" Visibility="Collapsed">
-            <TextBox x:Name="AddressInput" KeyDown="AddressInput_KeyDown" />
+            <TextBox x:Name="AddressInput" KeyDown="AddressInput_KeyDown" LostKeyboardFocus="AddressInput_LostKeyboardFocus" />
         </Border>
         <wv2:WebView2 x:Name="WebView" Grid.Row="1" />
     </Grid>

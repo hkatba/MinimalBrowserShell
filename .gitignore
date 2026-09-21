@@ -6,11 +6,16 @@
 *.sln.docstates
 
 # Build outputs
-/bin/
-/obj/
-/out/
-/artifacts/
-/publish/
+src/MinimalBrowserShell/bin/
+src/MinimalBrowserShell/obj/
+src/MinimalBrowserShell/out/
+src/MinimalBrowserShell/artifacts/
+src/MinimalBrowserShell/publish/
+tests/MinimalBrowserShell.Tests/bin/
+tests/MinimalBrowserShell.Tests/obj/
+tests/MinimalBrowserShell.Tests/out/
+tests/MinimalBrowserShell.Tests/artifacts/
+tests/MinimalBrowserShell.Tests/publish/
 
 # MSBuild binary log
 *.binlog
